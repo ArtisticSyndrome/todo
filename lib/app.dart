@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:provider/provider.dart';
 
 import 'core/theme/app_theme.dart';
@@ -15,6 +16,8 @@ class TodoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Todo',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: FlutterQuillLocalizations.localizationsDelegates,
+      supportedLocales: FlutterQuillLocalizations.supportedLocales,
       theme: isDark ? AppTheme.dark : AppTheme.light,
       // Theme swaps animate smoothly instead of snapping instantly.
       builder: (context, child) => AnimatedTheme(

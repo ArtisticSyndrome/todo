@@ -58,6 +58,16 @@ class TaskProvider extends ChangeNotifier {
     _persist();
   }
 
+  void setDrawing(String id, String? path) {
+    _findWithDepth(tasks, id, 0)?.$1.drawingPath = path;
+    _persist();
+  }
+
+  void setRichNotes(String id, String? json) {
+    _findWithDepth(tasks, id, 0)?.$1.richNotes = json;
+    _persist();
+  }
+
   void deleteTask(String id) {
     _removeById(tasks, id);
     _persist();

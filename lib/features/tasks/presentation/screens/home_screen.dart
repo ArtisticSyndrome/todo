@@ -21,22 +21,6 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Tasks'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.ios_share),
-            tooltip: 'Export',
-            onPressed: () => context.read<TaskProvider>().export(),
-          ),
-          IconButton(
-            icon: const Icon(Icons.file_upload_outlined),
-            tooltip: 'Import',
-            onPressed: () async {
-              final ok = await context.read<TaskProvider>().import();
-              if (ok && context.mounted) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(content: Text('Imported')));
-              }
-            },
-          ),
-          IconButton(
             icon: const Icon(Icons.settings_outlined),
             tooltip: 'Settings',
             onPressed: () => Navigator.of(context).push(

@@ -7,6 +7,10 @@ class Task {
   bool done;
   final DateTime createdAt;
   final List<Task> children;
+  // Path to a saved PNG sketch, and a Quill Delta (rich text) as JSON —
+  // both optional alternate note formats alongside plain [notes].
+  String? drawingPath;
+  String? richNotes;
 
   Task({
     required this.id,
@@ -15,6 +19,8 @@ class Task {
     this.done = false,
     DateTime? createdAt,
     List<Task>? children,
+    this.drawingPath,
+    this.richNotes,
   })  : createdAt = createdAt ?? DateTime.now(),
         children = children ?? [];
 
@@ -25,6 +31,8 @@ class Task {
         'done': done,
         'createdAt': createdAt.toIso8601String(),
         'children': children.map((c) => c.toJson()).toList(),
+        'drawingPath': drawingPath,
+        'richNotes': richNotes,
       };
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -36,5 +44,7 @@ class Task {
         children: (json['children'] as List<dynamic>? ?? [])
             .map((c) => Task.fromJson(c as Map<String, dynamic>))
             .toList(),
+        drawingPath: json['drawingPath'] as String?,
+        richNotes: json['richNotes'] as String?,
       );
 }

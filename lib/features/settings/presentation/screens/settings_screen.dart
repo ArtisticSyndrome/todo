@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/widgets/app_scaffold.dart';
+import '../../../tasks/presentation/providers/task_provider.dart';
 import '../providers/settings_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -76,6 +77,32 @@ class SettingsScreen extends StatelessWidget {
           Text('Data', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 4),
           const Text('All tasks stay on this device. Export to back up or move them.'),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () => context.read<TaskProvider>().export(),
+                  icon: const Icon(Icons.ios_share),
+                  label: const Text('Export'),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () async {
+                    final ok = await context.read<TaskProvider>().import();
+                    if (ok && context.mounted) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(const SnackBar(content: Text('Imported')));
+                    }
+                  },
+                  icon: const Icon(Icons.file_upload_outlined),
+                  label: const Text('Import'),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
